@@ -19,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
       RvsFragment(),
       StructsFragment(),
       SettingsFragment(),
+      //SettingsFragment(),
     ];
 
     return Consumer<HomeModel>(
@@ -35,6 +36,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: Icon(Icons.local_hospital_rounded),
                 label: "Structure",
               ),
+              // BottomNavigationBarItem(
+              //   icon: Icon(Icons.map_sharp),
+              //   label: "Carte",
+              // ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.settings_rounded),
                 label: "Paramètres",

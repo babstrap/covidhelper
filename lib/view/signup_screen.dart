@@ -26,10 +26,10 @@ class SignupScreen extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height / 50,
               ),
-              TextviewWidget(hintText: "Prénom"),
-              TextviewWidget(hintText: "Nom"),
-              TextviewWidget(hintText: "Login"),
-              TextviewWidget(hintText: "Mot de passe"),
+              // TextviewWidget(hintText: "Prénom"),
+              // TextviewWidget(hintText: "Nom"),
+              // TextviewWidget(hintText: "Login"),
+              // TextviewWidget(hintText: "Mot de passe"),
               ButtonWidget(
                 btnAction: () {},
                 btnText: "Inscription",
