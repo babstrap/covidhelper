@@ -46,5 +46,8 @@
 	<array>
 		<string>tel</string>
 	</array>
+
+	<key>NSCalendarsUsageDescription</key>
+	<string>Enregister le rendez-vous pour rappel</string>
 </dict>
 </plist>

@@ -29,6 +29,18 @@ class _AddRvScreenState extends State<AddRvScreen> {
     super.dispose();
   }
 
+  showSnakbar(BuildContext context) {
+    return SnackBar(
+      content: Text("Voulez-vous être rappelé ?"),
+      action: SnackBarAction(
+        onPressed: () {
+          // Add to calendar
+        },
+        label: "OK",
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     RvModel rvModel = Provider.of<RvModel>(context, listen: false);
@@ -39,8 +51,11 @@ class _AddRvScreenState extends State<AddRvScreen> {
         elevation: 0,
         actions: [
           TextButton(
-              onPressed: () {
-                rvModel.addRv();
+              onPressed: () async {
+                await rvModel.addRv();
+                // Add to calendar
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(showSnakbar(context));
               },
               child: Text(
                 "Enregistrer",

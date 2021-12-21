@@ -13,15 +13,53 @@ class Networking {
   static List<dynamic> rvList = [];
   static List<dynamic> structureList = [];
 
+  static int response = -1;
+
+  // Signup signup
+  static signup(String firstName, String lastName, String phoneNumber,
+      String login, String password) async {
+    // User user;
+
+    await http
+        .post(
+      Uri.parse(baseUrl + usersBaseUrl),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({
+        "first_name": firstName,
+        "last_name": lastName,
+        "address": "",
+        "birth_date": "",
+        "phone_number": int.parse(phoneNumber),
+        "login": login,
+        "pwd": password,
+        "profile": 0
+      }),
+    )
+        .then((value) {
+      print("CURRENT USER : " + value.statusCode.toString());
+
+      if (value.statusCode == 201) {
+        print("Votre compte est ouvert avce succès");
+      } else {
+        LoginModel.user = null;
+        print("Erreur d'ouverture du compte");
+      }
+      response = value.statusCode;
+    }).onError((error, stackTrace) {
+      print(stackTrace);
+      LoginModel.user = null;
+    });
+  }
+
   // login
-  static login(String email, String password) async {
+  static login(String login, String password) async {
     // User user;
 
     await http
         .post(
       Uri.parse(baseUrl + usersBaseUrl + "/login"),
       headers: {"Content-Type": "application/json"},
-      body: jsonEncode({"login": email, "pwd": password}),
+      body: jsonEncode({"login": login, "pwd": password}),
     )
         .then((value) {
       print("CURRENT USER : " + value.statusCode.toString());
