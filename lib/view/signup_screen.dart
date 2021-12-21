@@ -19,15 +19,19 @@ class SignupScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
+      body: Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.all(10.0),
         child: Consumer<SignupModel>(builder: (context, signupModel, _) {
           return Form(
             key: signupModel.loginKey,
             child: ListView(
+              shrinkWrap: true,
               children: [
-                TitleWidget(
-                  title: "Incription",
+                Center(
+                  child: TitleWidget(
+                    title: "Incription",
+                  ),
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 50,
@@ -77,19 +81,22 @@ class SignupScreen extends StatelessWidget {
                       else
                         return "Ce champs est obligatoire !";
                     }),
-                ButtonWidget(
-                  btnAction: () async {
-                    if (signupModel.loginKey.currentState!.validate()) {
-                      await signupModel.signup();
-                      if (Networking.response == 201)
-                        Navigator.pushReplacementNamed(
-                            context, GeneratedRoutes.loginScreen);
-                      else // Message d'erreur
-                        print("Erreur de connexion");
-                    }
-                    // Navigator.pushNamed(context, GeneratedRoutes.homeScreen);
-                  },
-                  btnText: "Inscription",
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+                  child: ButtonWidget(
+                    btnAction: () async {
+                      if (signupModel.loginKey.currentState!.validate()) {
+                        await signupModel.signup();
+                        if (Networking.response == 201)
+                          Navigator.pushReplacementNamed(
+                              context, GeneratedRoutes.loginScreen);
+                        else // Message d'erreur
+                          print("Erreur de connexion");
+                      }
+                      // Navigator.pushNamed(context, GeneratedRoutes.homeScreen);
+                    },
+                    btnText: "Inscription",
+                  ),
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 50,

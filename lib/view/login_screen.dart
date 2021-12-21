@@ -18,15 +18,19 @@ class LoginScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
+      body: Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.all(10.0),
         child: Consumer<LoginModel>(builder: (context, loginModel, _) {
           return Form(
             key: loginModel.loginKey,
             child: ListView(
+              shrinkWrap: true,
               children: [
-                TitleWidget(
-                  title: "Connexion",
+                Center(
+                  child: TitleWidget(
+                    title: "Connexion",
+                  ),
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 50,
@@ -49,19 +53,22 @@ class LoginScreen extends StatelessWidget {
                       else
                         return "Ce champs est obligatoire !";
                     }),
-                ButtonWidget(
-                  btnAction: () async {
-                    if (loginModel.loginKey.currentState!.validate()) {
-                      await loginModel.login();
-                      if (LoginModel.user != null)
-                        Navigator.pushReplacementNamed(
-                            context, GeneratedRoutes.homeScreen);
-                      else // Message d'erreur
-                        print("Erreur de connexion");
-                    }
-                    // Navigator.pushNamed(context, GeneratedRoutes.homeScreen);
-                  },
-                  btnText: "Connexion",
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+                  child: ButtonWidget(
+                    btnAction: () async {
+                      if (loginModel.loginKey.currentState!.validate()) {
+                        await loginModel.login();
+                        if (LoginModel.user != null)
+                          Navigator.pushReplacementNamed(
+                              context, GeneratedRoutes.homeScreen);
+                        else // Message d'erreur
+                          print("Erreur de connexion");
+                      }
+                      // Navigator.pushNamed(context, GeneratedRoutes.homeScreen);
+                    },
+                    btnText: "Connexion",
+                  ),
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 50,

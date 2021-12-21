@@ -109,12 +109,15 @@ class StructDetailsScreen extends StatelessWidget {
                     minLeadingWidth: 1,
                     visualDensity: VisualDensity.compact),
                 SizedBox(height: MediaQuery.of(context).size.height / 50),
-                ButtonWidget(
-                    btnAction: () {
-                      rvModel.selectStruct(structure['struct_id']);
-                      showAddRvScreen(context);
-                    },
-                    btnText: "Prendre rendez-vous"),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                  child: ButtonWidget(
+                      btnAction: () {
+                        rvModel.selectStruct(structure['struct_id']);
+                        showAddRvScreen(context);
+                      },
+                      btnText: "Prendre rendez-vous"),
+                ),
               ],
             ),
           ),
