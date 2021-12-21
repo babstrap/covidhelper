@@ -37,6 +37,7 @@ class SignupScreen extends StatelessWidget {
                   height: MediaQuery.of(context).size.height / 50,
                 ),
                 TextviewWidget(
+                    prefixIcon: Icon(Icons.person_rounded),
                     controller: signupModel.firstNameController,
                     hintText: "Prénom",
                     validator: (String? value) {
@@ -46,6 +47,7 @@ class SignupScreen extends StatelessWidget {
                         return "Ce champs est obligatoire !";
                     }),
                 TextviewWidget(
+                    prefixIcon: Icon(Icons.person_rounded),
                     controller: signupModel.lastNameController,
                     hintText: "Nom",
                     validator: (String? value) {
@@ -55,6 +57,7 @@ class SignupScreen extends StatelessWidget {
                         return "Ce champs est obligatoire !";
                     }),
                 TextviewWidget(
+                    prefixIcon: Icon(Icons.phone_rounded),
                     controller: signupModel.phoneNumberController,
                     hintText: "Téléphone",
                     validator: (String? value) {
@@ -64,6 +67,7 @@ class SignupScreen extends StatelessWidget {
                         return "Ce champs est obligatoire !";
                     }),
                 TextviewWidget(
+                    prefixIcon: Icon(Icons.person_outline_rounded),
                     controller: signupModel.loginController,
                     hintText: "Login",
                     validator: (String? value) {
@@ -73,6 +77,7 @@ class SignupScreen extends StatelessWidget {
                         return "Ce champs est obligatoire !";
                     }),
                 TextviewWidget(
+                    prefixIcon: Icon(Icons.lock_rounded),
                     controller: signupModel.pwdController,
                     hintText: "Mot de passe",
                     validator: (String? value) {

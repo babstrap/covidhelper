@@ -36,6 +36,7 @@ class LoginScreen extends StatelessWidget {
                   height: MediaQuery.of(context).size.height / 50,
                 ),
                 TextviewWidget(
+                    prefixIcon: Icon(Icons.person_rounded),
                     controller: loginModel.loginController,
                     hintText: "Login",
                     validator: (String? value) {
@@ -45,6 +46,7 @@ class LoginScreen extends StatelessWidget {
                         return "Ce champs est obligatoire !";
                     }),
                 TextviewWidget(
+                    prefixIcon: Icon(Icons.lock_rounded),
                     controller: loginModel.pwdController,
                     hintText: "Mot de passe",
                     validator: (String? value) {
