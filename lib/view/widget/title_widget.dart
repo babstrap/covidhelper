@@ -8,7 +8,9 @@ class TitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+      style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: MediaQuery.of(context).size.width / 13),
     );
   }
 }
