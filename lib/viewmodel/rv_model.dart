@@ -1,62 +1,53 @@
 import 'package:covidhelper_mobile/model/rv.dart';
-import 'package:covidhelper_mobile/model/structure.dart';
-import 'package:covidhelper_mobile/model/user.dart';
+import 'package:covidhelper_mobile/model/utils/networking.dart';
+import 'package:covidhelper_mobile/viewmodel/login_model.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 
 class RvModel extends ChangeNotifier {
-  List<Rv> rvList = [
-    Rv(
-      rvId: 1,
-      dateRv: formatDate(DateTime.now(), [dd, ' ', M, ' ', yyyy]),
-      objet: "Test",
-      etat: 1,
-      users: User(
-        userId: 1,
-        firstName: "Aziz",
-        lastName: "Seye",
-        login: "OK",
-        pwd: "OK",
-        profile: 1,
-      ),
-      structures: Structure(
-        structId: 1,
-        nom: "Fann",
-        adresse: "Av. UCAD",
-        contact: 336787878,
-        latitude: -14.1245,
-        longitude: 16.14567,
-        nbreTest: 12,
-        nbreVac: 23,
-        nbrTestDispo: 12,
-        nbrVaccinDispo: 12,
-      ),
-    ),
-    Rv(
-      rvId: 1,
-      dateRv: formatDate(DateTime.now(), [dd, ' ', M, ' ', yyyy]),
-      objet: "Vaccin",
-      etat: 1,
-      users: User(
-        userId: 1,
-        firstName: "Aziz",
-        lastName: "Seye",
-        login: "OK",
-        pwd: "OK",
-        profile: 1,
-      ),
-      structures: Structure(
-        structId: 1,
-        nom: "Fann",
-        adresse: "Av. UCAD",
-        contact: 336787878,
-        latitude: -14.1245,
-        longitude: 16.14567,
-        nbreTest: 12,
-        nbreVac: 23,
-        nbrTestDispo: 12,
-        nbrVaccinDispo: 12,
-      ),
-    )
-  ];
+  List<Rv> rvList = [];
+
+  GlobalKey<FormState> rvKey = GlobalKey<FormState>();
+  List<String> objectList = ["Test", "Vaccin"];
+
+  int? structSelected;
+  String objectSelected = "Test";
+  DateTime? dateSelected;
+
+  getUserRvs() async {
+    await Networking.getUserRvs();
+    notifyListeners();
+  }
+
+  selectStruct(structId) {
+    this.structSelected = structId;
+    print("Struct selected " + structSelected.toString());
+  }
+
+  selectObjet(objectId) {
+    this.objectSelected = objectId;
+    print("Rv selected " + objectSelected.toString());
+    notifyListeners();
+  }
+
+  selectDate(date) {
+    this.dateSelected = date;
+    print("Date selected " + dateSelected.toString());
+    notifyListeners();
+  }
+
+  addRv() {
+    print("User " + LoginModel.user!.userId.toString());
+    print("Structure " + this.structSelected.toString());
+    print("Objet " + this.objectSelected);
+    print("Date " + dateSelected.toString());
+    int objectValue =
+        (objectSelected.toLowerCase() == "Test".toLowerCase()) ? 0 : 1;
+    print("Objet value " + objectValue.toString());
+    String dateValue = formatDate(dateSelected!, [yyyy, "-", mm, "-", dd]);
+    print("Date " + dateValue);
+
+    Networking.addRv(
+        dateValue, objectValue, LoginModel.user!.userId, structSelected);
+  }
 }

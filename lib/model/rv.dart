@@ -11,6 +11,17 @@ class Rv {
   late Structure structures;
   late String? nextRv;
 
+  Rv.fromJson(Map<String, dynamic> json) {
+    this.rvId = json[''];
+    this.dateRv = json[''];
+    this.resultat = json[''];
+    this.objet = json[''];
+    this.etat = json[''];
+    this.users = json[''];
+    this.structures = json[''];
+    this.nextRv = "";
+  }
+
   Rv({
     required this.rvId,
     required this.dateRv,

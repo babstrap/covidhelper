@@ -1,4 +1,5 @@
 import 'package:covidhelper_mobile/model/structure.dart';
+import 'package:covidhelper_mobile/model/utils/networking.dart';
 import 'package:flutter/material.dart';
 
 class StructureModel extends ChangeNotifier {
@@ -20,5 +21,10 @@ class StructureModel extends ChangeNotifier {
   late int selectedStructIdex = 0;
   selectOneStruct(index) {
     selectedStructIdex = index;
+  }
+
+  getStructures() async {
+    await Networking.getStructures();
+    notifyListeners();
   }
 }

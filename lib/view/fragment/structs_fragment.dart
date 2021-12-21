@@ -1,3 +1,4 @@
+import 'package:covidhelper_mobile/model/utils/networking.dart';
 import 'package:covidhelper_mobile/view/widget/rv_row_widget.dart';
 import 'package:covidhelper_mobile/view/widget/structure_row_widget.dart';
 import 'package:covidhelper_mobile/view/widget/title_widget.dart';
@@ -11,25 +12,41 @@ class StructsFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(10),
-          child: TitleWidget(title: "Structures de santé"),
-        ),
-        Consumer<StructureModel>(
-          builder: (context, structModel, _) {
-            return ListView.separated(
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return StructureRowWidget(itemIndex: index);
-              },
-              separatorBuilder: (context, index) => Divider(),
-              itemCount: structModel.structList.length,
-            );
-          },
-        ),
-      ],
+    StructureModel structureModel =
+        Provider.of<StructureModel>(context, listen: false);
+    return Scaffold(
+      body: FutureBuilder(
+        future: structureModel.getStructures(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(child: Text("Verifier votre connexion à internet"));
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+          return ListView(
+            shrinkWrap: true,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: TitleWidget(title: "Structures de santé"),
+              ),
+              Consumer<RvModel>(
+                builder: (context, rvModel, _) {
+                  print("===>>> " + Networking.structureList.toString());
+                  return ListView.separated(
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return StructureRowWidget(itemIndex: index);
+                    },
+                    separatorBuilder: (context, index) => Divider(),
+                    itemCount: Networking.structureList.length,
+                  );
+                },
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }

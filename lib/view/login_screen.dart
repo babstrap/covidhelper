@@ -50,9 +50,14 @@ class LoginScreen extends StatelessWidget {
                         return "Ce champs est obligatoire !";
                     }),
                 ButtonWidget(
-                  btnAction: () {
+                  btnAction: () async {
                     if (loginModel.loginKey.currentState!.validate()) {
-                      loginModel.login();
+                      await loginModel.login();
+                      if (LoginModel.user != null)
+                        Navigator.pushReplacementNamed(
+                            context, GeneratedRoutes.homeScreen);
+                      else // Message d'erreur
+                        print("Erreur de connexion");
                     }
                     // Navigator.pushNamed(context, GeneratedRoutes.homeScreen);
                   },

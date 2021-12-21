@@ -1,5 +1,5 @@
+import 'package:covidhelper_mobile/view/fragment/map_fragment.dart';
 import 'package:covidhelper_mobile/view/fragment/rvs_fragment.dart';
-import 'package:covidhelper_mobile/view/fragment/settings_fragment.dart';
 import 'package:covidhelper_mobile/view/fragment/structs_fragment.dart';
 import 'package:covidhelper_mobile/viewmodel/home_model.dart';
 import 'package:flutter/material.dart';
@@ -18,13 +18,19 @@ class _HomeScreenState extends State<HomeScreen> {
     var listFragment = [
       RvsFragment(),
       StructsFragment(),
-      SettingsFragment(),
+      MapFragment(),
       //SettingsFragment(),
     ];
 
     return Consumer<HomeModel>(
       builder: (context, homeModel, child) {
         return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            actionsIconTheme: IconThemeData(color: Colors.black),
+            actions: [Icon(Icons.settings_rounded)],
+          ),
           body: listFragment[homeModel.currentFragmentIndex],
           bottomNavigationBar: BottomNavigationBar(
             items: [
@@ -36,13 +42,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: Icon(Icons.local_hospital_rounded),
                 label: "Structure",
               ),
-              // BottomNavigationBarItem(
-              //   icon: Icon(Icons.map_sharp),
-              //   label: "Carte",
-              // ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.settings_rounded),
-                label: "Paramètres",
+                icon: Icon(Icons.map_rounded),
+                label: "Carte",
               ),
             ],
             currentIndex: homeModel.currentFragmentIndex,

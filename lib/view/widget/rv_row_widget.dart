@@ -1,3 +1,4 @@
+import 'package:covidhelper_mobile/model/utils/networking.dart';
 import 'package:covidhelper_mobile/viewmodel/rv_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -29,11 +30,14 @@ class RvRowWidget extends StatelessWidget {
         ],
         child: ListTile(
           leading: Text(
-            rvModel.rvList[itemIndex].objet,
+            (Networking.rvList[itemIndex]['objet']) ? "Vaccin" : "Test",
             style: TextStyle(color: Colors.blue),
           ),
-          title: Text(rvModel.rvList[itemIndex].structures.nom),
-          subtitle: Text(rvModel.rvList[itemIndex].dateRv.toString()),
+          title: Text(
+            Networking.rvList[itemIndex]['structures']['nom'],
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          subtitle: Text(Networking.rvList[itemIndex]['date_rv'].toString()),
           trailing: Icon(Icons.keyboard_arrow_right_rounded),
         ),
       );
