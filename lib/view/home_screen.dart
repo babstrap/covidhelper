@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
           bottomNavigationBar: BottomNavigationBar(
             items: [
               BottomNavigationBarItem(
-                icon: Icon(Icons.home_rounded),
+                icon: Icon(Icons.calendar_today_rounded),
                 label: "RV",
               ),
               BottomNavigationBarItem(

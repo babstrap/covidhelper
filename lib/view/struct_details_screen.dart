@@ -6,6 +6,7 @@ import 'package:covidhelper_mobile/view/widget/title_widget.dart';
 import 'package:covidhelper_mobile/viewmodel/map_model.dart';
 import 'package:covidhelper_mobile/viewmodel/rv_model.dart';
 import 'package:covidhelper_mobile/viewmodel/structure_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -94,14 +95,16 @@ class StructDetailsScreen extends StatelessWidget {
                     minLeadingWidth: 1,
                     visualDensity: VisualDensity.compact),
                 ListTile(
-                    leading: Icon(Icons.one_k),
-                    title: Text(structure['nbr_test_dispo'].toString()),
+                    leading: Icon(Icons.text_snippet),
+                    title: Text(structure['nbr_test_dispo'].toString() +
+                        " test disponibles"),
                     contentPadding: EdgeInsets.all(0),
                     minLeadingWidth: 1,
                     visualDensity: VisualDensity.compact),
                 ListTile(
-                    leading: Icon(Icons.wheelchair_pickup),
-                    title: Text(structure['nbr_vaccin_dispo'].toString()),
+                    leading: Icon(Icons.health_and_safety_rounded),
+                    title: Text(structure['nbr_vaccin_dispo'].toString() +
+                        " vaccins disponibles"),
                     contentPadding: EdgeInsets.all(0),
                     minLeadingWidth: 1,
                     visualDensity: VisualDensity.compact),
