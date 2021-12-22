@@ -43,36 +43,45 @@ class StructureRowWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     RvModel rvModel = Provider.of<RvModel>(context, listen: false);
     return Consumer<StructureModel>(builder: (context, structModel, _) {
-      return Slidable(
-        actionPane: SlidableDrawerActionPane(),
-        secondaryActions: <Widget>[
-          IconSlideAction(
-              caption: 'Appel',
-              color: Colors.green,
-              icon: Icons.call_rounded,
+      return Container(
+        margin: EdgeInsets.only(bottom: 10),
+        child: Slidable(
+          actionPane: SlidableDrawerActionPane(),
+          secondaryActions: <Widget>[
+            IconSlideAction(
+                caption: 'Appel',
+                color: Colors.green,
+                icon: Icons.call_rounded,
+                onTap: () {
+                  callStruct(Networking.structureList[itemIndex]['contact']);
+                }),
+            IconSlideAction(
+                caption: 'RV',
+                color: Colors.blue,
+                icon: Icons.calendar_today_rounded,
+                onTap: () {
+                  rvModel.selectStruct(itemIndex);
+                  showAddRvScreen(context);
+                }),
+          ],
+          child: Container(
+            decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10)]),
+            child: ListTile(
+              title: Text(Networking.structureList[itemIndex]['nom']),
+              subtitle: Text(Networking.structureList[itemIndex]
+                      ['nbr_vaccin_dispo']
+                  .toString()),
+              trailing: Icon(
+                Icons.keyboard_arrow_right_rounded,
+              ),
               onTap: () {
-                callStruct(Networking.structureList[itemIndex]['contact']);
-              }),
-          IconSlideAction(
-              caption: 'RV',
-              color: Colors.blue,
-              icon: Icons.calendar_today_rounded,
-              onTap: () {
-                rvModel.selectStruct(itemIndex);
-                showAddRvScreen(context);
-              }),
-        ],
-        child: ListTile(
-          title: Text(Networking.structureList[itemIndex]['nom']),
-          subtitle: Text(Networking.structureList[itemIndex]['nbr_vaccin_dispo']
-              .toString()),
-          trailing: Icon(
-            Icons.keyboard_arrow_right_rounded,
+                structModel.selectOneStruct(itemIndex);
+                showStructDetailScreen(context);
+              },
+            ),
           ),
-          onTap: () {
-            structModel.selectOneStruct(itemIndex);
-            showStructDetailScreen(context);
-          },
         ),
       );
     });

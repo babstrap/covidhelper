@@ -2,6 +2,7 @@ import 'package:covidhelper_mobile/view/fragment/map_fragment.dart';
 import 'package:covidhelper_mobile/view/fragment/rvs_fragment.dart';
 import 'package:covidhelper_mobile/view/fragment/structs_fragment.dart';
 import 'package:covidhelper_mobile/viewmodel/home_model.dart';
+import 'package:covidhelper_mobile/viewmodel/login_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,6 +27,19 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, homeModel, child) {
         return Scaffold(
           appBar: AppBar(
+            title: Row(
+              children: [
+                CircleAvatar(
+                  radius: 15,
+                ),
+                SizedBox(width: 5),
+                Text(
+                  LoginModel.user!.firstName + " " + LoginModel.user!.lastName,
+                  style: TextStyle(color: Colors.black),
+                ),
+              ],
+            ),
+            centerTitle: false,
             backgroundColor: Colors.transparent,
             elevation: 0,
             actionsIconTheme: IconThemeData(color: Colors.black),

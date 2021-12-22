@@ -15,37 +15,37 @@ class StructsFragment extends StatelessWidget {
     StructureModel structureModel =
         Provider.of<StructureModel>(context, listen: false);
     return Scaffold(
-      body: FutureBuilder(
-        future: structureModel.getStructures(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Center(child: Text("Verifier votre connexion à internet"));
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          }
-          return ListView(
-            shrinkWrap: true,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: TitleWidget(title: "Structures de santé"),
-              ),
-              Consumer<RvModel>(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+              margin: EdgeInsets.only(bottom: 20, left: 10),
+              child: TitleWidget(title: "Structures de santé")),
+          FutureBuilder(
+            future: structureModel.getStructures(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Center(
+                    child: Text("Verifier votre connexion à internet"));
+              } else if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              }
+              return Consumer<RvModel>(
                 builder: (context, rvModel, _) {
                   print("===>>> " + Networking.structureList.toString());
-                  return ListView.separated(
+                  return ListView.builder(
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return StructureRowWidget(itemIndex: index);
                     },
-                    separatorBuilder: (context, index) => Divider(),
+                    // separatorBuilder: (context, index) => Divider(),
                     itemCount: Networking.structureList.length,
                   );
                 },
-              ),
-            ],
-          );
-        },
+              );
+            },
+          ),
+        ],
       ),
     );
   }

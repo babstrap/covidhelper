@@ -13,36 +13,40 @@ class RvsFragment extends StatelessWidget {
   Widget build(BuildContext context) {
     RvModel rvModel = Provider.of<RvModel>(context, listen: false);
     return Scaffold(
-      body: FutureBuilder(
-        future: rvModel.getUserRvs(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Center(child: Text("Verifier votre connexion à internet"));
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          }
-          return ListView(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: TitleWidget(title: "Rendez-vous"),
-              ),
-              Consumer<RvModel>(
-                builder: (context, rvModel, _) {
-                  print("===>>> " + Networking.rvList.toString());
-                  return ListView.separated(
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return RvRowWidget(itemIndex: index);
-                    },
-                    separatorBuilder: (context, index) => Divider(),
-                    itemCount: Networking.rvList.length,
-                  );
-                },
-              ),
-            ],
-          );
-        },
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+              margin: EdgeInsets.only(bottom: 20, left: 10),
+              child: TitleWidget(title: "Rendez-vous")),
+          Center(
+            child: FutureBuilder(
+              future: rvModel.getUserRvs(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Center(
+                      child: Text("Verifier votre connexion à internet"));
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                return Consumer<RvModel>(
+                  builder: (context, rvModel, _) {
+                    print("===>>> " + Networking.rvList.toString());
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return RvRowWidget(itemIndex: index);
+                      },
+                      // separatorBuilder: (context, index) => Divider(),
+                      itemCount: Networking.rvList.length,
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
