@@ -9,7 +9,6 @@ class LoginModel extends ChangeNotifier {
   TextEditingController pwdController = new TextEditingController();
 
   static User? user;
-  
 
   login() async {
     await Networking.login(loginController.text, pwdController.text);

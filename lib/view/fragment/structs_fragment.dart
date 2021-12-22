@@ -1,5 +1,4 @@
 import 'package:covidhelper_mobile/model/utils/networking.dart';
-import 'package:covidhelper_mobile/view/widget/rv_row_widget.dart';
 import 'package:covidhelper_mobile/view/widget/structure_row_widget.dart';
 import 'package:covidhelper_mobile/view/widget/title_widget.dart';
 import 'package:covidhelper_mobile/viewmodel/rv_model.dart';

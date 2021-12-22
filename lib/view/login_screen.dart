@@ -1,3 +1,5 @@
+import 'package:another_flushbar/flushbar.dart';
+import 'package:covidhelper_mobile/model/utils/networking.dart';
 import 'package:covidhelper_mobile/view/widget/button_widget.dart';
 import 'package:covidhelper_mobile/view/widget/textbutton_widget.dart';
 import 'package:covidhelper_mobile/view/widget/textview_widget.dart';
@@ -61,13 +63,17 @@ class LoginScreen extends StatelessWidget {
                     btnAction: () async {
                       if (loginModel.loginKey.currentState!.validate()) {
                         await loginModel.login();
-                        if (LoginModel.user != null)
+                        if (Networking.response == 200)
                           Navigator.pushReplacementNamed(
                               context, GeneratedRoutes.homeScreen);
-                        else // Message d'erreur
+                        else {
+                          // Message d'erreur
                           print("Erreur de connexion");
+                          // Flushbar(
+                          //   message: "Verifiez votre connexion à internet",
+                          // ).show(context);
+                        }
                       }
-                      // Navigator.pushNamed(context, GeneratedRoutes.homeScreen);
                     },
                     btnText: "Connexion",
                   ),

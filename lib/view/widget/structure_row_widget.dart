@@ -49,6 +49,7 @@ class StructureRowWidget extends StatelessWidget {
           actionPane: SlidableDrawerActionPane(),
           secondaryActions: <Widget>[
             IconSlideAction(
+                closeOnTap: true,
                 caption: 'Appel',
                 color: Colors.green,
                 icon: Icons.call_rounded,
@@ -56,6 +57,7 @@ class StructureRowWidget extends StatelessWidget {
                   callStruct(Networking.structureList[itemIndex]['contact']);
                 }),
             IconSlideAction(
+                closeOnTap: true,
                 caption: 'RV',
                 color: Colors.blue,
                 icon: Icons.calendar_today_rounded,

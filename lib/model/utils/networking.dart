@@ -19,6 +19,7 @@ class Networking {
   static signup(String firstName, String lastName, String phoneNumber,
       String login, String password) async {
     // User user;
+    response = -1;
 
     await http
         .post(
@@ -54,6 +55,7 @@ class Networking {
   // login
   static login(String login, String password) async {
     // User user;
+    response = -1;
 
     await http
         .post(
@@ -65,10 +67,13 @@ class Networking {
       print("CURRENT USER : " + value.statusCode.toString());
 
       if (value.statusCode == 200) {
+        print("Login OK");
         LoginModel.user = User.fromJson(jsonDecode(value.body));
       } else {
+        print("Login KO");
         LoginModel.user = null;
       }
+      response = value.statusCode;
     }).onError((error, stackTrace) {
       print(stackTrace);
       LoginModel.user = null;
