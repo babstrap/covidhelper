@@ -1,3 +1,4 @@
+import 'package:covidhelper_mobile/view/fragment/home_fragment.dart';
 import 'package:covidhelper_mobile/view/fragment/map_fragment.dart';
 import 'package:covidhelper_mobile/view/fragment/rvs_fragment.dart';
 import 'package:covidhelper_mobile/view/fragment/structs_fragment.dart';
@@ -17,6 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     var listFragment = [
+      HomeFragment(),
       RvsFragment(),
       StructsFragment(),
       MapFragment(),
@@ -26,35 +28,20 @@ class _HomeScreenState extends State<HomeScreen> {
     return Consumer<HomeModel>(
       builder: (context, homeModel, child) {
         return Scaffold(
-          appBar: AppBar(
-            title: Row(
-              children: [
-                CircleAvatar(
-                  radius: 15,
-                ),
-                SizedBox(width: 5),
-                Text(
-                  LoginModel.user!.firstName + " " + LoginModel.user!.lastName,
-                  style: TextStyle(color: Colors.black),
-                ),
-              ],
-            ),
-            centerTitle: false,
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            actionsIconTheme: IconThemeData(color: Colors.black),
-            actions: [Icon(Icons.settings_rounded)],
-          ),
           body: listFragment[homeModel.currentFragmentIndex],
           bottomNavigationBar: BottomNavigationBar(
             items: [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.calendar_today_rounded),
+                label: "Accueil",
+              ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.calendar_today_rounded),
                 label: "RV",
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.local_hospital_rounded),
-                label: "Structure",
+                label: "Struct",
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.map_rounded),
@@ -62,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
             currentIndex: homeModel.currentFragmentIndex,
+            type: BottomNavigationBarType.fixed,
             onTap: (index) {
               homeModel.switchFragment(index);
             },
