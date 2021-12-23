@@ -15,8 +15,7 @@ class StructsFragment extends StatelessWidget {
         Provider.of<StructureModel>(context, listen: false);
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        body: ListView(
           children: [
             Container(
                 margin: EdgeInsets.only(bottom: 20, left: 10),
@@ -34,12 +33,12 @@ class StructsFragment extends StatelessWidget {
                 return Consumer<RvModel>(
                   builder: (context, rvModel, _) {
                     print("===>>> " + Networking.structureList.toString());
-                    return ListView.builder(
+                    return ListView.separated(
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return StructureRowWidget(itemIndex: index);
                       },
-                      // separatorBuilder: (context, index) => Divider(),
+                      separatorBuilder: (context, index) => Divider(),
                       itemCount: Networking.structureList.length,
                     );
                   },
