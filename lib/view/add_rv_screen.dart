@@ -31,13 +31,15 @@ class _AddRvScreenState extends State<AddRvScreen> {
 
   showSnakbar(BuildContext context) {
     return SnackBar(
-      content: Text("Voulez-vous être rappelé ?"),
+      content:
+          Text("Rendez-vous bien enregistré. \nVoulez-vous être rappelé ?"),
       action: SnackBarAction(
         onPressed: () {
           // Add to calendar
         },
         label: "OK",
       ),
+      duration: Duration(seconds: 5),
     );
   }
 

@@ -27,11 +27,13 @@ class HomeFragment extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    LoginModel.user!.firstName,
+                    "Bienvenue,",
                     style: TextStyle(color: Colors.black),
                   ),
                   Text(
-                    LoginModel.user!.lastName,
+                    LoginModel.user!.firstName +
+                        " " +
+                        LoginModel.user!.lastName,
                     style: TextStyle(color: Colors.grey, fontSize: 13),
                   ),
                 ],
