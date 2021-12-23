@@ -29,7 +29,9 @@ class StructureRowWidget extends StatelessWidget {
     return showCupertinoModalBottomSheet(
       context: context,
       builder: (context) {
-        return AddRvScreen();
+        return Container(
+            height: MediaQuery.of(context).size.height / 1.5,
+            child: AddRvScreen());
       },
     );
   }
@@ -63,7 +65,7 @@ class StructureRowWidget extends StatelessWidget {
                 color: Colors.blue,
                 icon: Icons.calendar_today_rounded,
                 onTap: () {
-                  rvModel.selectStruct(itemIndex);
+                  rvModel.selectStruct(structure['struct_id']);
                   showAddRvScreen(context);
                 }),
           ],

@@ -1,6 +1,7 @@
 import 'package:covidhelper_mobile/model/utils/networking.dart';
 import 'package:covidhelper_mobile/view/widget/structure_row_widget.dart';
 import 'package:covidhelper_mobile/view/widget/title_widget.dart';
+import 'package:covidhelper_mobile/view/widget/title_widget_2.dart';
 import 'package:covidhelper_mobile/viewmodel/rv_model.dart';
 import 'package:covidhelper_mobile/viewmodel/structure_model.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +18,10 @@ class StructsFragment extends StatelessWidget {
       child: Scaffold(
         body: ListView(
           children: [
-            Container(
-                margin: EdgeInsets.only(bottom: 20, left: 10),
-                child: TitleWidget(title: "Structures de santé")),
+            TitleWidget2(
+              title: "Structures de santé",
+              subTitle: Text("Les 3 premières sont plus proches de vous"),
+            ),
             FutureBuilder(
               future: structureModel.getStructures(),
               builder: (context, snapshot) {

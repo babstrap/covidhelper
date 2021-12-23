@@ -20,7 +20,7 @@ class _AddRvScreenState extends State<AddRvScreen> {
     _controller = DatePickerController(
         initialDateTime: DateTime.now(),
         minYear: DateTime.now().year,
-        maxYear: 2050);
+        maxYear: DateTime.now().year);
   }
 
   @override
@@ -46,9 +46,14 @@ class _AddRvScreenState extends State<AddRvScreen> {
     RvModel rvModel = Provider.of<RvModel>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Prendre Rendez-vous"),
+        title: Text(
+          "Prendre Rendez-vous",
+          style: TextStyle(color: Colors.black),
+        ),
+        iconTheme: IconThemeData(color: Colors.black),
         centerTitle: true,
         elevation: 0,
+        backgroundColor: Colors.transparent,
         actions: [
           TextButton(
               onPressed: () async {
@@ -59,44 +64,77 @@ class _AddRvScreenState extends State<AddRvScreen> {
               },
               child: Text(
                 "Enregistrer",
-                style: TextStyle(color: Colors.black),
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
               ))
         ],
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
         child: Consumer<RvModel>(builder: (context, rvModel, _) {
           return Form(
               key: rvModel.rvKey,
               child: ListView(children: [
                 // Choose structure de santé
                 // Give object
-                DropdownButton(
-                    hint: Text("Objet"),
-                    items: rvModel.objectList.map((itemValue) {
-                      return DropdownMenuItem(
-                          value: itemValue, child: Text(itemValue));
-                    }).toList(),
-                    value: rvModel.objectSelected,
-                    onChanged: (objectId) {
-                      print(objectId);
-                      rvModel.selectObjet(objectId);
-                    }),
+                Column(
+                  children: [
+                    ListTile(
+                        title: Text(
+                      "Objet",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )),
+                    DropdownButtonFormField(
+                      items: rvModel.objectList.map((itemValue) {
+                        return DropdownMenuItem(
+                            value: itemValue, child: Text(itemValue));
+                      }).toList(),
+                      value: rvModel.objectSelected,
+                      onChanged: (objectId) {
+                        print(objectId);
+                        rvModel.selectObjet(objectId);
+                      },
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(20.0),
+                          ),
+                        ),
+                        filled: true,
+                        hintText: "Pays",
+                      ),
+                    ),
+                  ],
+                ),
                 // Give date
-                ScrollDatePicker(
-                  controller: _controller,
-                  locale: DatePickerLocale.fr_fr,
-                  pickerDecoration: BoxDecoration(
-                      border: Border.all(color: Colors.blueAccent, width: 2.0)),
-                  config: DatePickerConfig(
-                      isLoop: true,
-                      selectedTextStyle: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black,
-                          fontSize: 17.0)),
-                  onChanged: (value) {
-                    rvModel.dateSelected = value;
-                    print(rvModel.dateSelected.toString());
-                  },
+                Column(
+                  children: [
+                    ListTile(
+                        title: Text("Date de rendez-vous",
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    Container(
+                      height: MediaQuery.of(context).size.height / 6,
+                      child: ScrollDatePicker(
+                        controller: _controller,
+                        locale: DatePickerLocale.fr_fr,
+                        pickerDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border:
+                              Border.all(color: Colors.blueAccent, width: 2.0),
+                        ),
+                        config: DatePickerConfig(
+                            isLoop: true,
+                            selectedTextStyle: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black,
+                                fontSize: 17.0)),
+                        onChanged: (value) {
+                          rvModel.dateSelected = value;
+                          print(rvModel.dateSelected.toString());
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ]));
         }),
