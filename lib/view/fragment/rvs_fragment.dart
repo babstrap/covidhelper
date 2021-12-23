@@ -1,7 +1,6 @@
 import 'package:covidhelper_mobile/model/utils/networking.dart';
 import 'package:covidhelper_mobile/view/widget/rv_row_widget.dart';
 import 'package:covidhelper_mobile/view/widget/statistics_box_widget.dart';
-import 'package:covidhelper_mobile/view/widget/title_widget.dart';
 import 'package:covidhelper_mobile/view/widget/title_widget_2.dart';
 import 'package:covidhelper_mobile/viewmodel/login_model.dart';
 import 'package:covidhelper_mobile/viewmodel/rv_model.dart';
@@ -21,6 +20,8 @@ class RvsFragment extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 15,
+                backgroundColor: Colors.transparent,
+                backgroundImage: AssetImage("assets/logo.png"),
               ),
               SizedBox(width: 5),
               Column(
@@ -32,7 +33,7 @@ class RvsFragment extends StatelessWidget {
                   ),
                   Text(
                     LoginModel.user!.lastName,
-                    style: TextStyle(color: Colors.grey, fontSize: 15),
+                    style: TextStyle(color: Colors.grey, fontSize: 13),
                   ),
                 ],
               ),
