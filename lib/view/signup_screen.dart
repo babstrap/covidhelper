@@ -4,13 +4,31 @@ import 'package:covidhelper_mobile/view/widget/button_widget.dart';
 import 'package:covidhelper_mobile/view/widget/textbutton_widget.dart';
 import 'package:covidhelper_mobile/view/widget/textview_widget.dart';
 import 'package:covidhelper_mobile/view/widget/title_widget.dart';
-import 'package:covidhelper_mobile/viewmodel/login_model.dart';
 import 'package:covidhelper_mobile/viewmodel/signup_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({Key? key}) : super(key: key);
+
+  showProgressIndicator(BuildContext context) {
+    return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Connexion en cours..."),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              CircularProgressIndicator(),
+              Text("Veuillez patienter"),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,15 +108,42 @@ class SignupScreen extends StatelessWidget {
                   margin: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
                   child: ButtonWidget(
                     btnAction: () async {
+                      // if (signupModel.loginKey.currentState!.validate()) {
+                      //   await signupModel.signup();
+                      //   if (Networking.response == 201)
+                      //     Navigator.pushReplacementNamed(
+                      //         context, GeneratedRoutes.loginScreen);
+                      //   else // Message d'erreur
+                      //     print("Erreur de connexion");
+                      // }
+
                       if (signupModel.loginKey.currentState!.validate()) {
+                        showProgressIndicator(context);
                         await signupModel.signup();
-                        if (Networking.response == 201)
+                        if (Networking.response == 201) {
+                          Navigator.pop(context);
                           Navigator.pushReplacementNamed(
-                              context, GeneratedRoutes.loginScreen);
-                        else // Message d'erreur
+                              context, GeneratedRoutes.homeScreen);
+                        } else if (Networking.response == 500) {
+                          // Message d'erreur
                           print("Erreur de connexion");
+                          Navigator.pop(context);
+                          Networking.indicatorMsg(
+                            context,
+                            "Erreur: Identifiants incorrects",
+                            "Ce compte n'existe pas. ",
+                            Colors.red,
+                          );
+                        } else {
+                          Navigator.pop(context);
+                          Networking.indicatorMsg(
+                            context,
+                            "Erreur: Connexion instable",
+                            "Veuillez vérifier votre connexion à internet.",
+                            Colors.red,
+                          );
+                        }
                       }
-                      // Navigator.pushNamed(context, GeneratedRoutes.homeScreen);
                     },
                     btnText: "Inscription",
                   ),

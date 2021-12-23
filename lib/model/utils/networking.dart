@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:another_flushbar/flushbar.dart';
 import 'package:covidhelper_mobile/model/user.dart';
 import 'package:covidhelper_mobile/viewmodel/login_model.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class Networking {
@@ -14,6 +16,17 @@ class Networking {
   static List<dynamic> structureList = [];
 
   static int response = -1;
+
+  // Response indicator
+  static indicatorMsg(
+      BuildContext context, String title, String msg, Color color) {
+    return Flushbar(
+      title: title,
+      message: msg,
+      backgroundColor: color,
+      duration: Duration(seconds: 3),
+    ).show(context);
+  }
 
   // Signup signup
   static signup(String firstName, String lastName, String phoneNumber,
@@ -40,6 +53,7 @@ class Networking {
       print("CURRENT USER : " + value.statusCode.toString());
 
       if (value.statusCode == 201) {
+        LoginModel.user = User.fromJson(jsonDecode(value.body));
         print("Votre compte est ouvert avce succès");
       } else {
         LoginModel.user = null;
@@ -49,6 +63,9 @@ class Networking {
     }).onError((error, stackTrace) {
       print(stackTrace);
       LoginModel.user = null;
+    }).timeout(Duration(seconds: 15), onTimeout: () {
+      print("===> Time out");
+      response = -1;
     });
   }
 
@@ -77,6 +94,9 @@ class Networking {
     }).onError((error, stackTrace) {
       print(stackTrace);
       LoginModel.user = null;
+    }).timeout(Duration(seconds: 15), onTimeout: () {
+      print("===> Time out");
+      response = -1;
     });
   }
 

@@ -13,6 +13,25 @@ import '../generated_route.dart';
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
+  showProgressIndicator(BuildContext context) {
+    return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Connexion en cours..."),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              CircularProgressIndicator(),
+              Text("Veuillez patienter"),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,16 +81,30 @@ class LoginScreen extends StatelessWidget {
                   child: ButtonWidget(
                     btnAction: () async {
                       if (loginModel.loginKey.currentState!.validate()) {
+                        showProgressIndicator(context);
                         await loginModel.login();
-                        if (Networking.response == 200)
+                        if (Networking.response == 200) {
+                          Navigator.pop(context);
                           Navigator.pushReplacementNamed(
                               context, GeneratedRoutes.homeScreen);
-                        else {
+                        } else if (Networking.response == 500) {
                           // Message d'erreur
                           print("Erreur de connexion");
-                          // Flushbar(
-                          //   message: "Verifiez votre connexion à internet",
-                          // ).show(context);
+                          Navigator.pop(context);
+                          Networking.indicatorMsg(
+                            context,
+                            "Erreur: Identifiants incorrects",
+                            "Ce compte n'existe pas. ",
+                            Colors.red,
+                          );
+                        } else {
+                          Navigator.pop(context);
+                          Networking.indicatorMsg(
+                            context,
+                            "Erreur: Connexion instable",
+                            "Veuillez vérifier votre connexion à internet.",
+                            Colors.red,
+                          );
                         }
                       }
                     },
