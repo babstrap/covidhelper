@@ -1,5 +1,3 @@
-import 'package:covidhelper_mobile/model/utils/networking.dart';
-import 'package:covidhelper_mobile/viewmodel/login_model.dart';
 import 'package:flutter/material.dart';
 
 class StatisticsBoxWidget extends StatelessWidget {
