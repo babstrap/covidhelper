@@ -26,6 +26,13 @@ class MapModel extends ChangeNotifier {
             snippet: oneStruct['nbr_test_dispo'].toString(),
             onTap: () {
               // TODO: Implement this
+              SnackBar(
+                content: Text(oneStruct['nom']),
+                action: SnackBarAction(
+                  label: "Voir plus",
+                  onPressed: () {},
+                ),
+              );
             },
           ),
         ),
