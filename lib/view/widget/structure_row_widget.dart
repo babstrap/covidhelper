@@ -29,7 +29,9 @@ class StructureRowWidget extends StatelessWidget {
     return showCupertinoModalBottomSheet(
       context: context,
       builder: (context) {
-        return AddRvScreen();
+        return Container(
+            height: MediaQuery.of(context).size.height / 1.5,
+            child: AddRvScreen());
       },
     );
   }
@@ -42,6 +44,7 @@ class StructureRowWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     RvModel rvModel = Provider.of<RvModel>(context, listen: false);
+    var structure = Networking.structureList[itemIndex];
     return Consumer<StructureModel>(builder: (context, structModel, _) {
       return Container(
         margin: EdgeInsets.only(bottom: 10),
@@ -54,7 +57,7 @@ class StructureRowWidget extends StatelessWidget {
                 color: Colors.green,
                 icon: Icons.call_rounded,
                 onTap: () {
-                  callStruct(Networking.structureList[itemIndex]['contact']);
+                  callStruct(structure['contact']);
                 }),
             IconSlideAction(
                 closeOnTap: true,
@@ -62,27 +65,46 @@ class StructureRowWidget extends StatelessWidget {
                 color: Colors.blue,
                 icon: Icons.calendar_today_rounded,
                 onTap: () {
-                  rvModel.selectStruct(itemIndex);
+                  rvModel.selectStruct(structure['struct_id']);
                   showAddRvScreen(context);
                 }),
           ],
-          child: Container(
-            decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10)]),
-            child: ListTile(
-              title: Text(Networking.structureList[itemIndex]['nom']),
-              subtitle: Text(Networking.structureList[itemIndex]
-                      ['nbr_vaccin_dispo']
-                  .toString()),
-              trailing: Icon(
-                Icons.keyboard_arrow_right_rounded,
-              ),
-              onTap: () {
-                structModel.selectOneStruct(itemIndex);
-                showStructDetailScreen(context);
-              },
+          child: ListTile(
+            dense: true,
+            leading: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Vaccin",
+                  style: TextStyle(
+                      color: (structure['nbr_vaccin_dispo'] > 0)
+                          ? Colors.green
+                          : Colors.red),
+                ),
+                Text(
+                  "Test",
+                  style: TextStyle(
+                      color: (structure['nbr_test_dispo'] > 0)
+                          ? Colors.green
+                          : Colors.red),
+                )
+              ],
             ),
+            title: Text(
+              structure['nom'],
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            subtitle: Text(
+              structure['adresse'].toString(),
+            ),
+            trailing: Icon(
+              Icons.keyboard_arrow_right_rounded,
+            ),
+            onTap: () {
+              structModel.selectOneStruct(itemIndex);
+              showStructDetailScreen(context);
+            },
           ),
         ),
       );

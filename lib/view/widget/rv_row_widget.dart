@@ -14,40 +14,31 @@ class RvRowWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<RvModel>(builder: (context, rvModel, _) {
-      return Container(
-        margin: EdgeInsets.only(bottom: 10),
-        child: Slidable(
-          actionPane: SlidableDrawerActionPane(),
-          secondaryActions: <Widget>[
-            IconSlideAction(
-                caption: 'Modifier',
-                color: Colors.blue,
-                icon: Icons.edit_rounded,
-                onTap: () {}),
-            IconSlideAction(
-                caption: 'Annuler',
-                color: Colors.red,
-                icon: Icons.delete_rounded,
-                onTap: () {}),
-          ],
-          child: Container(
-            decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10)]),
-            child: ListTile(
-              leading: Text(
-                (Networking.rvList[itemIndex]['objet']) ? "Vaccin" : "Test",
-                style: TextStyle(color: Colors.blue),
-              ),
-              title: Text(
-                Networking.rvList[itemIndex]['structures']['nom'],
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              subtitle:
-                  Text(Networking.rvList[itemIndex]['date_rv'].toString()),
-              trailing: Icon(Icons.keyboard_arrow_right_rounded),
-            ),
+      return Slidable(
+        actionPane: SlidableDrawerActionPane(),
+        secondaryActions: <Widget>[
+          IconSlideAction(
+              caption: 'Modifier',
+              color: Colors.blue,
+              icon: Icons.edit_rounded,
+              onTap: () {}),
+          IconSlideAction(
+              caption: 'Annuler',
+              color: Colors.red,
+              icon: Icons.delete_rounded,
+              onTap: () {}),
+        ],
+        child: ListTile(
+          leading: (Networking.rvList[itemIndex]['objet'])
+              ? Text("Vaccin", style: TextStyle(color: Colors.green))
+              : Text("Test", style: TextStyle(color: Colors.blue)),
+          title: Text(
+            Networking.rvList[itemIndex]['structures']['nom'],
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
+          subtitle: Text(Networking.rvList[itemIndex]['date_rv'].toString()),
+          trailing: Icon(Icons.keyboard_arrow_right_rounded),
+          dense: true,
         ),
       );
     });
