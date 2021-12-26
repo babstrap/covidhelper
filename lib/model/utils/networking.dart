@@ -122,6 +122,7 @@ class Networking {
     });
   }
 
+  // Prendre rendez-vous
   static addRv(date, object, userId, structId) async {
     print("Structure URL = " + baseUrl + structuresBaseUrl);
     await http.post(

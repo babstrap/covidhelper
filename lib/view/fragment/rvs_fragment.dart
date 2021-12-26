@@ -67,7 +67,7 @@ class RvsFragment extends StatelessWidget {
                     StatisticsBoxWidget(
                       boxColor: Colors.blue,
                       boxIcon: Icons.calculate,
-                      value: Networking.rvList.length,
+                      value: 2,
                       title: 'À venir',
                     ),
                   ],
