@@ -83,14 +83,14 @@ class RvsFragment extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Center(
-                      child: Text("Verifier votre connexion à internet"));
+                      child: Text("Vérifier votre connexion à internet"));
                 } else if (snapshot.connectionState ==
                     ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
                 }
                 return Consumer<RvModel>(
                   builder: (context, rvModel, _) {
-                    print("===>>> " + Networking.rvList.toString());
+                    //print("===>>> " + Networking.rvList.toString());
                     return ListView.separated(
                       shrinkWrap: true,
                       itemBuilder: (context, index) {

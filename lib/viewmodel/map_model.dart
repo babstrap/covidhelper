@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:covidhelper_mobile/model/utils/networking.dart';
+import 'package:covidhelper_mobile/view/struct_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class MapModel extends ChangeNotifier {
   Completer<GoogleMapController> controller = Completer();
@@ -25,14 +27,7 @@ class MapModel extends ChangeNotifier {
             title: oneStruct['nom'],
             snippet: oneStruct['nbr_test_dispo'].toString(),
             onTap: () {
-              // TODO: Implement this
-              SnackBar(
-                content: Text(oneStruct['nom']),
-                action: SnackBarAction(
-                  label: "Voir plus",
-                  onPressed: () {},
-                ),
-              );
+              print("Hello world !");
             },
           ),
         ),

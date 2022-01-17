@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class Networking {
-  static final String baseUrl = "https://api-covidhelper-v1.herokuapp.com";
+  static final String baseUrl = "https://covid-helper-v2.herokuapp.com";
   static final String usersBaseUrl = "/users";
   static final String structuresBaseUrl = "/structures";
   static final String rvBaseUrl = "/rvs";
@@ -101,9 +101,19 @@ class Networking {
   }
 
   static getUserRvs() async {
-    print("RV URL = " + LoginModel.user!.rvListUrl);
+    print("================ " +
+        baseUrl +
+        rvBaseUrl +
+        "/" +
+        LoginModel.user!.userId.toString() +
+        "/users");
+
     await http.get(
-      Uri.parse(LoginModel.user!.rvListUrl),
+      Uri.parse(baseUrl +
+          rvBaseUrl +
+          "/" +
+          LoginModel.user!.userId.toString() +
+          "/users"),
       headers: {"Content-Type": "application/json"},
     ).then((response) {
       rvList = jsonDecode(response.body);

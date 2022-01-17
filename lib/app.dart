@@ -24,6 +24,7 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => MapModel()),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         initialRoute: GeneratedRoutes.loginScreen,
         onGenerateRoute: GeneratedRoutes.onGeneratedRoute,
       ),

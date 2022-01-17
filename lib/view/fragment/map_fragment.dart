@@ -19,7 +19,7 @@ class _MapFragmentState extends State<MapFragment> {
       builder: (context, snapshot) {
         return Center(
           child: GoogleMap(
-            mapType: MapType.satellite,
+            mapType: MapType.hybrid,
             initialCameraPosition: mapModel.kGooglePlex,
             onMapCreated: (GoogleMapController controller) {
               mapModel.controller.complete(controller);

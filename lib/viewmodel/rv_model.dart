@@ -16,7 +16,7 @@ class RvModel extends ChangeNotifier {
 
   getUserRvs() async {
     await Networking.getUserRvs();
-    notifyListeners();
+    //notifyListeners();
   }
 
   selectStruct(structId) {
@@ -42,7 +42,7 @@ class RvModel extends ChangeNotifier {
     print("Objet " + this.objectSelected);
     print("Date " + dateSelected.toString());
     int objectValue =
-        (objectSelected.toLowerCase() == "Test".toLowerCase()) ? 0 : 1;
+        (objectSelected.toLowerCase() == "Test".toLowerCase()) ? 1 : 0;
     print("Objet value " + objectValue.toString());
     String dateValue = formatDate(dateSelected!, [yyyy, "-", mm, "-", dd]);
     print("Date " + dateValue);
