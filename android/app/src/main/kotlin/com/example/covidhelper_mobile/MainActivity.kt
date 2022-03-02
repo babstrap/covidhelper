@@ -1,4 +1,4 @@
-package com.example.covidhelper_mobile
+package com.babstrap.covidhelper_mobile
 
 import io.flutter.embedding.android.FlutterActivity
 
