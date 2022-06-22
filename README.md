@@ -1,16 +1,20 @@
 # covidhelper_mobile
 
-A new Flutter project.
+Dans le cadre de la prise en main de la technologie des Web services, j'étais confrontés à mettre en place une application d’appuis à la lutte contre la COVID19.
+Cette application permet aux utilisateurs de s’orienter plus facilement pour faire des tests ou prendre le vaccin dans les différentes structures de santé locales.
 
-## Getting Started
+# Ingrédients
+- Application cliente avec Flutter (version 2.X)
+- API REST avec Springboot (+ HATEOAS)
+- Heroku
+- Postman
 
-This project is a starting point for a Flutter application.
+# Dépendances Flutter utilisées
+ 
+ - __provider__ : pour le State management
+ - __http__ : pour effectuer des requettes HTTP (Les dernières versions de Flutter l'intégre directement)
+ - __scroll_date_picker__ : pour améliorer l'UX en choissant une DATE de rendez-vous (J'ai contribué à son amélioration)
+ - __google_maps_flutter__ : pour afficher une Carte Google maps
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Liens utils
+- Payload - https://www.getpostman.com/collections/b0463b5cf60d9cad01fd
